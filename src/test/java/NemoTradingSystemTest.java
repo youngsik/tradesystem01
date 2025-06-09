@@ -105,6 +105,8 @@ class NemoTradingSystemTest {
         int actual = app.buyNiceTiming(STOCK_CODE,10000);
         assertEquals(expected, actual);
     }
+
+    @Test
     void nemoSellNiceTiming() throws InterruptedException {
         NemoTradingSystem app = new NemoTradingSystem(nemoApi);
 

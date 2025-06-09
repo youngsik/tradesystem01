@@ -81,15 +81,14 @@ public class NemoTradingSystem implements TradingSystem{
         return resPrice;
     }
 
-    @Override
-    public void sellNiceTiming(String stockCode, int count) {
-
-    }
-
-    public void sellNiceTiming(String stockCode, int stockCount) throws InterruptedException {
+    public void sellNiceTiming(String stockCode, int stockCount) {
         int[] priceTrend = new int[3];
         for(int i = 0; i < priceTrend.length; i++) {
-            priceTrend[i] = nemoApi.getMarketPrice(stockCode, 1);
+            try {
+                priceTrend[i] = nemoApi.getMarketPrice(stockCode, 1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         if( priceTrend[0] < priceTrend[1] && priceTrend[1] < priceTrend[2]) {
             int sellingPrice = priceTrend[2];
