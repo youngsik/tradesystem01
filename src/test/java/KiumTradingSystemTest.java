@@ -80,4 +80,6 @@ class KiumTradingSystemTest {
 
         assertEquals(actual, expected);
     }
+
+
 }

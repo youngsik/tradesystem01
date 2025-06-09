@@ -71,4 +71,20 @@ class NemoTradingSystemTest {
         int actual = app.getPrice(STOCK_CODE);
         assertEquals(expected, actual);
     }
+
+    @Test
+    void nemoBuyNiceTiming() {
+        NemoTradingSystem app = new NemoTradingSystem(nemoApi);
+
+        app.buyNiceTiming(STOCK_CODE,10000);
+        verify(nemoApi, times(3)).getMarketPrice(STOCK_CODE,1);
+    }
+
+    @Test
+    void nemoSellNiceTiming() {
+        NemoTradingSystem app = new NemoTradingSystem(nemoApi);
+
+        app.sellNiceTiming(STOCK_CODE,10000);
+        verify(nemoApi, times(3)).getMarketPrice(STOCK_CODE,1);
+    }
 }
