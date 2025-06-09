@@ -67,4 +67,17 @@ class KiumTradingSystemTest {
         String expected = String.format("%s를 %d 가격에 매도하였음", stockCode, price);
         assertEquals(actual, expected);
     }
+
+    @Test
+    void kiumgetPrice() {
+        String stockCode = "T02";
+        int expected = 2000;
+        when(mockKiwerAPI.getPrice(stockCode)
+                .thenReturn(expected);
+
+        KiumTradingSystem app = new KiumTradingSystem();
+        String actual = app.getPrice(stockCode);
+
+        assertEquals(actual, expected);
+    }
 }
