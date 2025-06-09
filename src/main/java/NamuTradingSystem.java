@@ -1,13 +1,25 @@
 public class NamuTradingSystem {
-    NemoAPI nemoAPI;
+
+    public NamuTradingSystem() {
+        this.nemoAPI = new NemoAPI();
+    }
+  
+    public String login(String id, String password){
+
+        String result = api.login(id, password);
+        if (result.equals(NamuApi.NOT_FOUND)){
+            api.signUp(id, password);
+            result = api.login(id, password);
+
+        }
+
+        return result;
+    }
   
     public String sell(String stockCode, int count, int price) {
         return stockCode + "를 " + price + " 가격에 매도하였음";
     }
 
-    public NamuTradingSystem() {
-        this.nemoAPI = new NemoAPI();
-    }
 
     public String buy(String stockCode, int count, int price) {
         try {
