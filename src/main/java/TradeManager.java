@@ -1,8 +1,17 @@
 public class TradeManager {
 
+    private static TradeManager tradeManager;
     private TradingSystem tradingSystem;
 
-    public TradeManager(TradingSystem tradingSystem) {
+    private TradeManager() {}
+
+    public static TradeManager getInstance(){
+        if(tradeManager == null)
+            tradeManager = new TradeManager();
+        return tradeManager;
+    }
+
+    public void selectStockBrocker(TradingSystem tradingSystem){
         this.tradingSystem = tradingSystem;
     }
 
