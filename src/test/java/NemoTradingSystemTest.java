@@ -113,4 +113,12 @@ class NemoTradingSystemTest {
         app.sellNiceTiming(STOCK_CODE,10000);
         verify(nemoApi, times(3)).getMarketPrice(STOCK_CODE,1);
     }
+
+    @Test
+    void nemoSellNiceTiming() throws InterruptedException {
+        NemoTradingSystem app = new NemoTradingSystem(nemoApi);
+
+        app.sellNiceTiming(STOCK_CODE,10000);
+        verify(nemoApi, times(3)).getMarketPrice(STOCK_CODE,1);
+    }
 }

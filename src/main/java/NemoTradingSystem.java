@@ -97,4 +97,27 @@ public class NemoTradingSystem implements TradingSystem{
             System.out.println("매도 타이밍이 좋지 않습니다.");
         }
     }
+
+    public void sellNiceTiming(String stockCode, int stockCount) throws InterruptedException {
+        int[] priceTrend = getPriceTrend(stockCode, 3);
+        if (isDownTrend(priceTrend)) {
+            int sellingPrice = priceTrend[2];
+            nemoApi.sellingStock(stockCode, sellingPrice, stockCount);
+        } else {
+            System.out.println("매도 타이밍이 좋지 않습니다.");
+        }
+    }
+
+    private int[] getPriceTrend(String stockCode, int count) throws InterruptedException {
+        int[] prices = new int[count];
+        for (int i = 0; i < count; i++) {
+            prices[i] = nemoApi.getMarketPrice(stockCode, 1);
+        }
+        return prices;
+    }
+
+    private boolean isDownTrend(int[] prices) {
+        if (prices.length < 3) return false;
+        return prices[0]>  prices[1] && prices[1] > prices[2];
+    }
 }
