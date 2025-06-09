@@ -4,10 +4,10 @@ public class NemoTradingSystem implements TradingSystem{
 
     private String id;
     private String pw;
-    NemoApi nemoApi;
+    private NemoApi nemoApi;
 
-    public NemoTradingSystem() {
-        this.nemoApi = new NemoApi();
+    public NemoTradingSystem(NemoApi nemoApi) {
+        this.nemoApi = nemoApi;
     }
 
     public String login(String id, String pw) {
