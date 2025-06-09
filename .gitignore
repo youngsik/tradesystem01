@@ -4,6 +4,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/Main/**/build/
 !**/src/test/**/build/
+src/test/java/mainTest.java
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
