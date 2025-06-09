@@ -24,7 +24,7 @@ class TradeManagerTest {
 
     @Test
     void TradeManagerLoginPass2() {
-        tradingSystem = new KiumTradingSystem();
+        tradingSystem = new NemoTradingSystem();
         trademanager = new TradeManager(tradingSystem);
         String expected = String.format("%s" + LOGIN_SUCCESS_LOG, ID);
 

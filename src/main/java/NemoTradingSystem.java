@@ -1,10 +1,11 @@
-public class NemoTradingSystem {
+public class NemoTradingSystem implements TradingSystem {
     NemoApi nemoApi;
 
     public NemoTradingSystem() {
         this.nemoApi = new NemoApi();
     }
-  
+
+    @Override
     public String login(String id, String password){
 
         String result = nemoApi.login(id, password);
