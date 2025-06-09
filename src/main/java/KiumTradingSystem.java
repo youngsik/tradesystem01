@@ -7,7 +7,11 @@ public class KiumTradingSystem {
     private KiwerAPI kiwerAPI;
 
     public KiumTradingSystem() {
-        kiwerAPI = new KiwerAPI();
+        this.kiwerAPI = new KiwerAPI();
+    }
+
+    public KiumTradingSystem(KiwerAPI kiwerAPI) {
+        this.kiwerAPI = kiwerAPI;
     }
 
     public String login(String id, String pw) {
@@ -26,6 +30,11 @@ public class KiumTradingSystem {
 
     private boolean isPossiblePW(String pw) {
         return pw.equals("BTS");
+    }
+
+    public String buy(String stockCode, int count, int price) {
+        kiwerAPI.buy(stockCode, count, price);
+        return String.format("%s를 %d 가격에 매수하였음", stockCode, price);
     }
 
     public String sell(String stockCode, int count, int price) {
