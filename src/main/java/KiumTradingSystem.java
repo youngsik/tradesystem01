@@ -7,7 +7,11 @@ public class KiumTradingSystem {
     private KiwerAPI kiwerAPI;
 
     public KiumTradingSystem() {
-        kiwerAPI = new KiwerAPI();
+        this.kiwerAPI = new KiwerAPI();
+    }
+
+    public KiumTradingSystem(KiwerAPI kiwerAPI) {
+        this.kiwerAPI = kiwerAPI;
     }
 
     public String login(String id, String pw) {
