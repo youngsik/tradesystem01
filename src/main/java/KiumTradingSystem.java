@@ -1,6 +1,7 @@
 public class KiumTradingSystem implements TradingSystem{
     public static final String LOGIN_FAIL_LOG = "님 로그인 실패";
     public static final String LOGIN_SUCCESS_LOG = "님 로그인 성공";
+    public static final int TERND_COUNT = 3;
 
     private String id;
     private String pw;
@@ -61,5 +62,18 @@ public class KiumTradingSystem implements TradingSystem{
             throw new RuntimeException("내려가는 추세가 아닙니다. 매도 실패");
         }
         kiwerAPI.sell(stockCode, count, price);
+    }
+
+    public int buyNiceTiming(String stockCode, int amount) {
+        int price = -1;
+        for (int i = 0; i < TERND_COUNT; i++){
+            int currentPrice = kiwerAPI.currentPrice(stockCode);
+            if (currentPrice <= price) {
+                return -1;
+            }
+            price = currentPrice;
+        }
+
+        return amount / price;
     }
 }

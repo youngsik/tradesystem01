@@ -93,4 +93,10 @@ class KiumTradingSystemTest {
 
         verify(mockKiwerAPI, times(3)).currentPrice(STOCK_CODE);
     }
+  
+    @Test
+    void kiumBuyNiceTiming() {
+        kiumTradingSystem.buyNiceTiming(STOCK_CODE,10000);
+        verify(mockKiwerAPI, atLeastOnce()).currentPrice(STOCK_CODE);
+    }
 }
