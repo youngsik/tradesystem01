@@ -80,4 +80,12 @@ class KiumTradingSystemTest {
 
         assertEquals(actual, expected);
     }
+
+    @Test
+    void kiumSellNiceTiming() {
+        KiumTradingSystem app = new KiumTradingSystem(mockKiwerAPI);
+
+        app.sellNiceTiming(STOCK_CODE,10000);
+        verify(mockKiwerAPI, times(3)).currentPrice(STOCK_CODE);
+    }
 }
