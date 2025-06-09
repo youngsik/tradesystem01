@@ -1,20 +1,20 @@
 public class NemoTradingSystem {
-    NemoApi nemoApi;
+    NemoAPI nemoAPI;
 
-    public NemoTradingSystem() {
-        this.nemoApi = new NemoApi();
+    public NemoTradingSystem(NemoAPI nemoAPI) {
+        this.nemoAPI = nemoAPI;
     }
-  
+
     public String login(String id, String password){
+        // String result = nemoAPI.login(id, password);
+        // if (result.equals(nemoAPI.NOT_FOUND)){
+        //     nemoAPI.signUp(id, password);
+        //     result = nemoAPI.login(id, password);
+        // }
 
-        String result = nemoApi.login(id, password);
-        if (result.equals(NemoApi.NOT_FOUND)){
-            nemoApi.signUp(id, password);
-            result = nemoApi.login(id, password);
+        // return result;
 
-        }
-
-        return result;
+        return null;
     }
   
     public String sell(String stockCode, int count, int price) {
@@ -24,7 +24,7 @@ public class NemoTradingSystem {
 
     public String buy(String stockCode, int count, int price) {
         try {
-            nemoApi.purchasingStock(stockCode, price, count);
+            nemoAPI.purchasingStock(stockCode, price, count);
             return String.format("%s를 %d 가격에 매수하였음", stockCode,price);
         } catch (Exception e) {
             return String.format("%s 매수 중 오류 발생: %s", stockCode, e.getMessage());
