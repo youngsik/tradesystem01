@@ -6,6 +6,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class KiumTradingSystemTest {
@@ -65,6 +66,18 @@ class KiumTradingSystemTest {
         KiumTradingSystem app = new KiumTradingSystem();
         String actual = app.sell(stockCode,count,price);
         String expected = String.format("%s를 %d 가격에 매도하였음", stockCode, price);
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void kiumgetprice() {
+        String stockCode = "T02";
+        int expected = 2000;
+        when(mockKiwerAPI.currentPrice(stockCode)).thenReturn(expected);
+
+        KiumTradingSystem app = new KiumTradingSystem(mockKiwerAPI);
+        int actual = app.getPrice(stockCode);
+
         assertEquals(actual, expected);
     }
 }
