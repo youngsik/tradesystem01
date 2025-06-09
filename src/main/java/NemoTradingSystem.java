@@ -6,6 +6,10 @@ public class NemoTradingSystem implements TradingSystem{
     private String pw;
     private NemoApi nemoApi;
 
+    public NemoTradingSystem() {
+        this.nemoApi = new NemoApi();
+    }
+
     public NemoTradingSystem(NemoApi nemoApi) {
         this.nemoApi = nemoApi;
     }
@@ -27,12 +31,8 @@ public class NemoTradingSystem implements TradingSystem{
     private boolean isPossiblePW(String pw) {
         return pw.equals("BTS");
     }
-  
-    public String sell(String stockCode, int count, int price) {
-        return stockCode + "를 " + price + " 가격에 매도하였음";
-    }
 
-
+    @Override
     public String buy(String stockCode, int count, int price) {
         try {
             nemoApi.purchasingStock(stockCode, price, count);
@@ -40,6 +40,12 @@ public class NemoTradingSystem implements TradingSystem{
         } catch (Exception e) {
             return String.format("%s 매수 중 오류 발생: %s", stockCode, e.getMessage());
         }
+    }
+
+    @Override
+    public String sell(String stockCode, int count, int price) {
+        nemoApi.sellingStock(stockCode, price, count);
+        return stockCode + "를 " + price + " 가격에 매도하였음";
     }
 
     public int getPrice(String stockCode) {

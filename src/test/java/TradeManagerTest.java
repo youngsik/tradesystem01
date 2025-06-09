@@ -8,8 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 class TradeManagerTest {
+
     @Mock
-    NemoApi nemoApi;
+    private NemoApi nemoApi;
+
+    @Mock
+    private KiwerAPI kiwerAPI;
 
     public static final String ID = "ABC";
     public static final String CORRECT_PW = "BTS";
@@ -45,9 +49,10 @@ class TradeManagerTest {
 
     @Test
     void TradeManagerBuy1() {
-        tradingSystem = new KiumTradingSystem();
+        tradingSystem = new KiumTradingSystem(kiwerAPI);
         trademanager.selectStockBrocker(tradingSystem);
         String expected = String.format("%s를 %d 가격에 매수하였음", STOCK_CODE, STOCK_PRICE);
+        Mockito.doNothing().when(kiwerAPI).buy(STOCK_CODE, STOCK_COUNT, STOCK_PRICE);
 
         String actual = trademanager.buy(STOCK_CODE, STOCK_COUNT, STOCK_PRICE);
         assertEquals(actual, expected);
@@ -58,6 +63,7 @@ class TradeManagerTest {
         tradingSystem = new NemoTradingSystem(nemoApi);
         trademanager.selectStockBrocker(tradingSystem);
         String expected = String.format("%s를 %d 가격에 매수하였음", STOCK_CODE, STOCK_PRICE);
+        Mockito.doNothing().when(nemoApi).purchasingStock(STOCK_CODE, STOCK_COUNT, STOCK_PRICE);
 
         String actual = trademanager.buy(STOCK_CODE, STOCK_COUNT, STOCK_PRICE);
         assertEquals(actual, expected);
@@ -75,9 +81,29 @@ class TradeManagerTest {
         }
 
         int expected = STOCK_PRICE;
-        int  actual = trademanager.getPrice(STOCK_CODE);
+        int actual = trademanager.getPrice(STOCK_CODE);
 
         assertEquals(expected, actual);
     }
 
+    void TradeManagerSell1() {
+        tradingSystem = new KiumTradingSystem(kiwerAPI);
+        trademanager.selectStockBrocker(tradingSystem);
+        String expected = String.format("%s를 %d 가격에 매도하였음", STOCK_CODE, STOCK_PRICE);
+        Mockito.doNothing().when(kiwerAPI).sell(STOCK_CODE, STOCK_COUNT, STOCK_PRICE);
+
+        String actual = trademanager.sell(STOCK_CODE, STOCK_COUNT, STOCK_PRICE);
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void TradeManagerSell2() {
+        tradingSystem = new NemoTradingSystem(nemoApi);
+        trademanager.selectStockBrocker(tradingSystem);
+        String expected = String.format("%s를 %d 가격에 매도하였음", STOCK_CODE, STOCK_PRICE);
+        Mockito.doNothing().when(nemoApi).sellingStock(STOCK_CODE, STOCK_PRICE, STOCK_COUNT);
+
+        String actual = trademanager.sell(STOCK_CODE, STOCK_COUNT, STOCK_PRICE);
+        assertEquals(actual, expected);
+    }
 }

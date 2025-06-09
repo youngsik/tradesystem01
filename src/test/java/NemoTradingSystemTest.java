@@ -5,6 +5,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class NemoTradingSystemTest {
@@ -16,6 +17,7 @@ class NemoTradingSystemTest {
     public static final String STOCK_CODE = "T02";
     public static final int STOCK_COUNT = 1;
     public static final int STOCK_SELLING_PRICE = 2000;
+    public static final int GET_PRICE_MINUTE = 1;
 
     @BeforeEach
     void setUp() {
@@ -59,5 +61,14 @@ class NemoTradingSystemTest {
         String actual = app.buy(stockCode,count,price);
         String expected = String.format("%s를 %d 가격에 매수하였음", stockCode,price);
         assertEquals(actual, expected);
+    }
+
+    @Test
+    void nemogetprice() throws InterruptedException {
+        int expected = 2000;
+        when(nemoApi.getMarketPrice(STOCK_CODE,GET_PRICE_MINUTE)).thenReturn(2000);
+
+        int actual = app.getPrice(STOCK_CODE);
+        assertEquals(expected, actual);
     }
 }
