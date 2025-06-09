@@ -1,11 +1,8 @@
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class mainTest {
-
-
     @Test
     void kiumloginpass() {
         String id = "ABC";
@@ -16,7 +13,7 @@ class mainTest {
         String expected = String.format("%s님 로그인 성공", id);
         assertEquals(actual, expected);
     }
-    @Test
+
     void kiumloginfail() {
         String id = "ABC";
         String password = "TEST";
@@ -51,7 +48,7 @@ class mainTest {
         assertEquals(actual, expected);
     }
 
-    @Test
+
     void kiumbuypass() {
         String stockCode = "T01";
         int count = 1;
@@ -62,7 +59,7 @@ class mainTest {
         String expected = String.format("%s를 %d 가격에 매수하였음", stockCode,price);
         assertEquals(actual, expected);
     }
-    @Test
+
     void namubuypass() {
         String stockCode = "T01";
         int count = 1;
@@ -74,7 +71,7 @@ class mainTest {
         assertEquals(actual, expected);
     }
 
-    @Test
+
     void kiumsellpass() {
         String stockCode = "T02";
         int count = 1;
@@ -85,7 +82,7 @@ class mainTest {
         String expected = String.format("%s를 %d 가격에 매도하였음", stockCode,price);
         assertEquals(actual, expected);
     }
-    @Test
+
     void namusellypass() {
         String stockCode = "T02";
         int count = 1;
@@ -105,9 +102,29 @@ class mainTest {
         String expected = String.format("%s님 로그인 성공", id);
         assertEquals(actual, expected);
     }
+    @Test
+    void TradeManagerLoginPass2() {
+        TradeManager trademanager = new TradeManager();
+        trademanager.selectStockBrocker("kium");
+        String actual = trademanager.login("ABC","BTS");
+        String expected = String.format("%s님 로그인 성공", id);
+        assertEquals(actual, expected);
+    }
+    /*
+    참고해주세요
+    class TradeManager 필요
+    -- private TradingSystem tradingsystem
 
+    interface TradingSystem 필요
 
+    class KiumTradingSystem implements TradingSystem
 
+        KiwerAPI kiwerAPI;
+
+        KiumTradingSystem(){
+            kiwerAPI = new KiwerAPI();
+        }
+     */
 
 
 }
