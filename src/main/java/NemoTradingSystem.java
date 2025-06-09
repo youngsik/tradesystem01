@@ -51,8 +51,12 @@ public class NemoTradingSystem implements TradingSystem{
         return stockCode + "를 " + price + " 가격에 매도하였음";
     }
 
-    public int getPrice(String stockCode) throws InterruptedException {
-        return nemoApi.getMarketPrice(stockCode, GET_PRICE_MINUTE);
+    public int getPrice(String stockCode) {
+        try {
+            return nemoApi.getMarketPrice(stockCode, 1);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public int buyNiceTiming(String stockCode, int amount) throws InterruptedException {
@@ -75,5 +79,9 @@ public class NemoTradingSystem implements TradingSystem{
             resPrice = currentPrice;
         }
         return resPrice;
+
+    @Override
+    public void sellNiceTiming(String stockCode, int count) {
+
     }
 }

@@ -36,4 +36,8 @@ public class TradeManager {
             return String.format("%s 매도 중 오류 발생: %s", stockCode, e.getMessage());
         }
     }
+
+    public int getPrice(String stockCode) {
+        return tradingSystem.getPrice(stockCode);
+    }
 }
