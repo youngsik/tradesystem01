@@ -87,6 +87,6 @@ class KiumTradingSystemTest {
         KiumTradingSystem app = new KiumTradingSystem(mockKiwerAPI);
 
         app.buyNiceTiming(STOCK_CODE,10000);
-        verify(mockKiwerAPI, times(3)).buyNiceTiming(STOCK_CODE,10000);
+        verify(mockKiwerAPI, times(3)).getPrice(STOCK_CODE);
     }
 }
