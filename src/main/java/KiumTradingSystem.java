@@ -37,4 +37,9 @@ public class KiumTradingSystem {
         return String.format("%s를 %d 가격에 매수하였음", stockCode, price);
     }
 
+    public String sell(String stockCode, int count, int price) {
+        kiwerAPI.sell(stockCode, count, price);
+        return stockCode + "를 " + price+" 가격에 매도하였음";
+    }
+
 }
