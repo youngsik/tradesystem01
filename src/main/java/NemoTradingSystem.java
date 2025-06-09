@@ -6,6 +6,10 @@ public class NemoTradingSystem implements TradingSystem{
     private String pw;
     private NemoApi nemoApi;
 
+    public NemoTradingSystem() {
+        this.nemoApi = new NemoApi();
+    }
+
     public NemoTradingSystem(NemoApi nemoApi) {
         this.nemoApi = nemoApi;
     }
@@ -42,5 +46,9 @@ public class NemoTradingSystem implements TradingSystem{
     public String sell(String stockCode, int count, int price) {
         nemoApi.sellingStock(stockCode, price, count);
         return stockCode + "를 " + price + " 가격에 매도하였음";
+    }
+
+    public int getPrice(String stockCode) throws InterruptedException {
+        return nemoApi.getMarketPrice(stockCode, 1);
     }
 }
