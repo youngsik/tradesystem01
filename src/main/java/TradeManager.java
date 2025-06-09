@@ -20,21 +20,11 @@ public class TradeManager {
     }
 
     public String buy(String stockCode, int count, int price) {
-        try {
-            tradingSystem.buy(stockCode, count, price);
-            return String.format("%s를 %d 가격에 매수하였음", stockCode,price);
-        } catch (Exception e) {
-            return String.format("%s 매수 중 오류 발생: %s", stockCode, e.getMessage());
-        }
+        return tradingSystem.buy(stockCode, count, price);
     }
 
     public String sell(String stockCode, int count, int price) {
-        try {
-            tradingSystem.sell(stockCode, count, price);
-            return String.format("%s를 %d 가격에 매도하였음", stockCode,price);
-        } catch (Exception e) {
-            return String.format("%s 매도 중 오류 발생: %s", stockCode, e.getMessage());
-        }
+        return tradingSystem.sell(stockCode, count, price);
     }
 
     public int getPrice(String stockCode) {
