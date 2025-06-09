@@ -63,4 +63,14 @@ class TradeManagerTest {
         assertEquals(actual, expected);
     }
 
+    @Test
+    void TradeManagerGetPrice() {
+        tradingSystem = new NemoTradingSystem(nemoApi);
+        trademanager.selectStockBrocker(tradingSystem);
+        String expected = String.format("%s를 %d 가격에 매수하였음", STOCK_CODE, STOCK_PRICE);
+
+        int  actual = trademanager.getPrice(STOCK_CODE);
+        assertNotNull(actual);
+    }
+
 }
