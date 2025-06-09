@@ -1,6 +1,9 @@
 public class NemoTradingSystem implements TradingSystem{
     public static final String LOGIN_FAIL_LOG = "님 로그인 실패";
     public static final String LOGIN_SUCCESS_LOG = "님 로그인 성공";
+    public static final int TEADE_COUNT = 3;
+    public static final int GET_PRICE_MINUTE = 1;
+    public static final int NOT_BUY_TIMING = -1;
 
     private String id;
     private String pw;
@@ -56,15 +59,36 @@ public class NemoTradingSystem implements TradingSystem{
         }
     }
 
-    @Override
-    public void sellNiceTiming(String stockCode, int count) {
+    public int buyNiceTiming(String stockCode, int amount) throws InterruptedException {
+        int resPrice = getBuyPrice(stockCode);
 
+        if (resPrice == NOT_BUY_TIMING)
+            return NOT_BUY_TIMING;
+
+        buy(stockCode, (int) amount / resPrice, resPrice);
+        return amount / resPrice;
     }
 
-    public void sellNiceTiming(String stockCode, int stockCount) throws InterruptedException {
+    private int getBuyPrice(String stockCode) throws InterruptedException {
+        int resPrice = NOT_BUY_TIMING;
+        for (int i = 0; i < TEADE_COUNT; i++) {
+            int currentPrice = nemoApi.getMarketPrice(stockCode, GET_PRICE_MINUTE);
+            if (currentPrice <= resPrice) {
+                return NOT_BUY_TIMING;
+            }
+            resPrice = currentPrice;
+        }
+        return resPrice;
+    }
+
+    public void sellNiceTiming(String stockCode, int stockCount) {
         int[] priceTrend = new int[3];
         for(int i = 0; i < priceTrend.length; i++) {
-            priceTrend[i] = nemoApi.getMarketPrice(stockCode, 1);
+            try {
+                priceTrend[i] = nemoApi.getMarketPrice(stockCode, 1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         if( priceTrend[0] < priceTrend[1] && priceTrend[1] < priceTrend[2]) {
             int sellingPrice = priceTrend[2];

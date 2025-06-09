@@ -73,6 +73,40 @@ class NemoTradingSystemTest {
     }
 
     @Test
+    void nemoBuyNiceTimingCalledGetMarketPrice() throws InterruptedException {
+        NemoTradingSystem app = new NemoTradingSystem(nemoApi);
+
+        app.buyNiceTiming(STOCK_CODE,10000);
+        verify(nemoApi, atLeastOnce()).getMarketPrice(STOCK_CODE, GET_PRICE_MINUTE);
+    }
+
+    @Test
+    void nemoBuyNiceTimingCheckBuyCount() throws InterruptedException {
+        when(nemoApi.getMarketPrice(STOCK_CODE,GET_PRICE_MINUTE))
+                .thenReturn(2000)
+                .thenReturn(3000)
+                .thenReturn(4000);
+        int expected = 2;
+
+        NemoTradingSystem app = new NemoTradingSystem(nemoApi);
+        int actual = app.buyNiceTiming(STOCK_CODE,10000);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void nemoBuyNiceTimingNotBuyTiming() throws InterruptedException {
+        when(nemoApi.getMarketPrice(STOCK_CODE,GET_PRICE_MINUTE))
+                .thenReturn(4000)
+                .thenReturn(3000)
+                .thenReturn(2000);
+        int expected = -1;
+
+        NemoTradingSystem app = new NemoTradingSystem(nemoApi);
+        int actual = app.buyNiceTiming(STOCK_CODE,10000);
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void nemoSellNiceTiming() throws InterruptedException {
         NemoTradingSystem app = new NemoTradingSystem(nemoApi);
 
