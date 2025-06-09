@@ -1,4 +1,4 @@
-public class NemoTradingSystem {
+public class NemoTradingSystem implements TradingSystem{
     public static final String LOGIN_FAIL_LOG = "님 로그인 실패";
     public static final String LOGIN_SUCCESS_LOG = "님 로그인 성공";
 
