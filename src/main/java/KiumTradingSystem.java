@@ -7,7 +7,11 @@ public class KiumTradingSystem implements TradingSystem{
     private KiwerAPI kiwerAPI;
 
     public KiumTradingSystem() {
-        kiwerAPI = new KiwerAPI();
+        this.kiwerAPI = new KiwerAPI();
+    }
+
+    public KiumTradingSystem(KiwerAPI kiwerAPI) {
+        this.kiwerAPI = kiwerAPI;
     }
 
     @Override
@@ -31,6 +35,11 @@ public class KiumTradingSystem implements TradingSystem{
 
     public String buy(String stockCode, int count, int price) {
         kiwerAPI.buy(stockCode, count, price);
+        return String.format("%s를 %d 가격에 매수하였음", stockCode, price);
+    }
+
+    public String sell(String stockCode, int count, int price) {
+        kiwerAPI.sell(stockCode, count, price);
         return stockCode + "를 " + price+" 가격에 매도하였음";
     }
 
