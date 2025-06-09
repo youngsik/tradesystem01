@@ -11,7 +11,7 @@ public class KiumTradingSystem {
     }
 
     public String login(String id, String pw) {
-        if(!isPossibleId(id) || !isPossiblePW(pw)){
+        if (!isPossibleId(id) || !isPossiblePW(pw)) {
             return id + LOGIN_FAIL_LOG;
         }
         kiwerAPI.login(id, pw);
@@ -27,4 +27,10 @@ public class KiumTradingSystem {
     private boolean isPossiblePW(String pw) {
         return pw.equals("BTS");
     }
+
+    public String buy(String stockCode, int count, int price) {
+        kiwerAPI.buy(stockCode, count, price);
+        return stockCode + "를 " + price+" 가격에 매도하였음";
+    }
+
 }
