@@ -13,7 +13,7 @@ class NamuTradingSystemTest {
     }
 
     @Test
-    void nemologinpass() {
+    void namuloginpass() {
         String id = "ABC";
         String password = "BTS";
 
@@ -24,7 +24,8 @@ class NamuTradingSystemTest {
     }
 
     @Test
-    void nemologinfail() {
+    void namuloginfail() {
+        app.login("ABC", "BTS");
         String id = "ABC";
         String password = "TEST";
 
