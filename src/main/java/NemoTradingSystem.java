@@ -71,7 +71,7 @@ public class NemoTradingSystem implements TradingSystem{
 
     private int getBuyPrice(String stockCode) throws InterruptedException {
         int resPrice = NOT_BUY_TIMING;
-        for (int i = 0; i < TEADE_COUNT; i++){
+        for (int i = 0; i < TEADE_COUNT; i++) {
             int currentPrice = nemoApi.getMarketPrice(stockCode, GET_PRICE_MINUTE);
             if (currentPrice <= resPrice) {
                 return NOT_BUY_TIMING;
@@ -79,6 +79,7 @@ public class NemoTradingSystem implements TradingSystem{
             resPrice = currentPrice;
         }
         return resPrice;
+    }
 
     @Override
     public void sellNiceTiming(String stockCode, int count) {
