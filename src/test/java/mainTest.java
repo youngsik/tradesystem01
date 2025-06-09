@@ -1,29 +1,31 @@
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class mainTest {
+
     @Test
     void kiumloginpass() {
         String id = "ABC";
         String password = "BTS";
 
         KiumTradingSystem app = new KiumTradingSystem();
-        String actual = app.login(id,password);
+        String actual = app.login(id, password);
         String expected = String.format("%s님 로그인 성공", id);
         assertEquals(actual, expected);
     }
 
+    @Test
     void kiumloginfail() {
         String id = "ABC";
         String password = "TEST";
 
         KiumTradingSystem app = new KiumTradingSystem();
-        String actual = app.login(id,password);
+        String actual = app.login(id, password);
         String expected = String.format("%s님 로그인 실패", id);
         assertEquals(actual, expected);
     }
-
 
     @Test
     void nemologinpass() {
@@ -31,7 +33,7 @@ class mainTest {
         String password = "BTS";
 
         NamuTradingSystem app = new NamuTradingSystem();
-        String actual = app.login(id,password);
+        String actual = app.login(id, password);
         String expected = String.format("%s님 로그인 성공", id);
 
         assertEquals(actual, expected);
@@ -43,7 +45,7 @@ class mainTest {
         String password = "TEST";
 
         NamuTradingSystem app = new NamuTradingSystem();
-        String actual = app.login(id,password);
+        String actual = app.login(id, password);
         String expected = String.format("%s님 로그인 실패", id);
         assertEquals(actual, expected);
     }
@@ -55,8 +57,8 @@ class mainTest {
         int price = 1000;
 
         KiumTradingSystem app = new KiumTradingSystem();
-        String actual = app.buy(stockCode,count,price);
-        String expected = String.format("%s를 %d 가격에 매수하였음", stockCode,price);
+        String actual = app.buy(stockCode, count, price);
+        String expected = String.format("%s를 %d 가격에 매수하였음", stockCode, price);
         assertEquals(actual, expected);
     }
 
@@ -66,8 +68,8 @@ class mainTest {
         int price = 1000;
 
         NamuTradingSystem app = new NamuTradingSystem();
-        String actual = app.buy(stockCode,count,price);
-        String expected = String.format("%s를 %d 가격에 매수하였음", stockCode,price);
+        String actual = app.buy(stockCode, count, price);
+        String expected = String.format("%s를 %d 가격에 매수하였음", stockCode, price);
         assertEquals(actual, expected);
     }
 
