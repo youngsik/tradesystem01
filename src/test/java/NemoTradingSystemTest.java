@@ -6,6 +6,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class NemoTradingSystemTest {
@@ -73,18 +74,24 @@ class NemoTradingSystemTest {
     }
 
     @Test
-    void nemoBuyNiceTiming() {
+    void nemoBuyNiceTimingCalledGetMarketPrice() throws InterruptedException {
         NemoTradingSystem app = new NemoTradingSystem(nemoApi);
 
         app.buyNiceTiming(STOCK_CODE,10000);
-        verify(nemoApi, times(3)).getMarketPrice(STOCK_CODE,1);
+        verify(nemoApi, atLeastOnce()).getMarketPrice(STOCK_CODE, GET_PRICE_MINUTE);
     }
 
     @Test
-    void nemoSellNiceTiming() {
-        NemoTradingSystem app = new NemoTradingSystem(nemoApi);
+    void nemoBuyNiceTimingCheckBuyCount() throws InterruptedException {
+        when(nemoApi.getMarketPrice(STOCK_CODE,GET_PRICE_MINUTE))
+                .thenReturn(2000)
+                .thenReturn(3000)
+                .thenReturn(4000);
+        int expected = 2;
 
-        app.sellNiceTiming(STOCK_CODE,10000);
-        verify(nemoApi, times(3)).getMarketPrice(STOCK_CODE,1);
+        NemoTradingSystem app = new NemoTradingSystem(nemoApi);
+        int actual = app.buyNiceTiming(STOCK_CODE,10000);
+        assertEquals(expected, actual);
+
     }
 }

@@ -1,6 +1,9 @@
 public class NemoTradingSystem implements TradingSystem{
     public static final String LOGIN_FAIL_LOG = "님 로그인 실패";
     public static final String LOGIN_SUCCESS_LOG = "님 로그인 성공";
+    public static final int TEADE_COUNT = 3;
+    public static final int GET_PRICE_MINUTE = 1;
+    public static final int NOT_BUY_TIMING = -1;
 
     private String id;
     private String pw;
@@ -49,6 +52,28 @@ public class NemoTradingSystem implements TradingSystem{
     }
 
     public int getPrice(String stockCode) throws InterruptedException {
-        return nemoApi.getMarketPrice(stockCode, 1);
+        return nemoApi.getMarketPrice(stockCode, GET_PRICE_MINUTE);
+    }
+
+    public int buyNiceTiming(String stockCode, int amount) throws InterruptedException {
+        int resPrice = getBuyPrice(stockCode);
+
+        if (resPrice == NOT_BUY_TIMING)
+            return NOT_BUY_TIMING;
+
+        buy(stockCode, (int) amount / resPrice, resPrice);
+        return amount / resPrice;
+    }
+
+    private int getBuyPrice(String stockCode) throws InterruptedException {
+        int resPrice = NOT_BUY_TIMING;
+        for (int i = 0; i < TEADE_COUNT; i++){
+            int currentPrice = nemoApi.getMarketPrice(stockCode, GET_PRICE_MINUTE);
+            if (currentPrice <= resPrice) {
+                return NOT_BUY_TIMING;
+            }
+            resPrice = currentPrice;
+        }
+        return resPrice;
     }
 }
