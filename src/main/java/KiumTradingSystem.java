@@ -43,4 +43,7 @@ public class KiumTradingSystem implements TradingSystem{
         return stockCode + "를 " + price+" 가격에 매도하였음";
     }
 
+    public int getPrice(String stockCode) {
+        return kiwerAPI.currentPrice(stockCode);
+    }
 }
