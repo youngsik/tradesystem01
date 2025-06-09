@@ -17,7 +17,7 @@ public class KiumTradingSystem {
         kiwerAPI.login(id, pw);
         this.id = id;
         this.pw = pw;
-        return id + LOGIN_SUCCESS_LOG;
+        return this.id + LOGIN_SUCCESS_LOG;
     }
 
     private boolean isPossibleId(String id) {
