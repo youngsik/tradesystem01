@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class mainTest {
-    /*@Test
+    @Test
     void kiumloginpass() {
         String id = "ABC";
         String password = "BTS";
@@ -35,9 +35,9 @@ class mainTest {
         String expected = String.format("%s님 로그인 성공", id);
 
         assertEquals(actual, expected);
-    }*/
+    }
 
-    /*@Test
+    @Test
     void nemologinfail() {
         String id = "ABC";
         String password = "TEST";
@@ -46,10 +46,10 @@ class mainTest {
         String actual = app.login(id,password);
         String expected = String.format("%s님 로그인 실패", id);
         assertEquals(actual, expected);
-    }*/
+    }
 
 
-    /*void kiumbuypass() {
+    void kiumbuypass() {
         String stockCode = "T01";
         int count = 1;
         int price = 1000;
@@ -92,6 +92,6 @@ class mainTest {
         String actual = app.buy(stockCode,count,price);
         String expected = String.format("%s를 %d 가격에 매도하였음", stockCode,price);
         assertEquals(actual, expected);
-    }*/
+    }
 
 }
