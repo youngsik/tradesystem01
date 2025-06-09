@@ -1,20 +1,31 @@
 public class NemoTradingSystem {
+    public static final String LOGIN_FAIL_LOG = "님 로그인 실패";
+    public static final String LOGIN_SUCCESS_LOG = "님 로그인 성공";
+
+    private String id;
+    private String pw;
     NemoApi nemoApi;
 
     public NemoTradingSystem() {
         this.nemoApi = new NemoApi();
     }
-  
-    public String login(String id, String password){
 
-        String result = nemoApi.login(id, password);
-        if (result.equals(NemoApi.NOT_FOUND)){
-            nemoApi.signUp(id, password);
-            result = nemoApi.login(id, password);
-
+    public String login(String id, String pw) {
+        if (!isPossibleId(id) || !isPossiblePW(pw)) {
+            return id + LOGIN_FAIL_LOG;
         }
+        nemoApi.certification(id, pw);
+        this.id = id;
+        this.pw = pw;
+        return this.id + LOGIN_SUCCESS_LOG;
+    }
 
-        return result;
+    private boolean isPossibleId(String id) {
+        return id.equals("ABC");
+    }
+
+    private boolean isPossiblePW(String pw) {
+        return pw.equals("BTS");
     }
   
     public String sell(String stockCode, int count, int price) {
