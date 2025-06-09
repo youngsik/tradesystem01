@@ -1,16 +1,16 @@
-public class NamuTradingSystem {
-    NamuApi namuApi;
+public class NemoTradingSystem {
+    NemoApi nemoApi;
 
-    public NamuTradingSystem() {
-        this.namuApi = new NamuApi();
+    public NemoTradingSystem() {
+        this.nemoApi = new NemoApi();
     }
   
     public String login(String id, String password){
 
-        String result = namuApi.login(id, password);
-        if (result.equals(NamuApi.NOT_FOUND)){
-            namuApi.signUp(id, password);
-            result = namuApi.login(id, password);
+        String result = nemoApi.login(id, password);
+        if (result.equals(NemoApi.NOT_FOUND)){
+            nemoApi.signUp(id, password);
+            result = nemoApi.login(id, password);
 
         }
 
@@ -24,7 +24,7 @@ public class NamuTradingSystem {
 
     public String buy(String stockCode, int count, int price) {
         try {
-            namuApi.purchasingStock(stockCode, price, count);
+            nemoApi.purchasingStock(stockCode, price, count);
             return String.format("%s를 %d 가격에 매수하였음", stockCode,price);
         } catch (Exception e) {
             return String.format("%s 매수 중 오류 발생: %s", stockCode, e.getMessage());

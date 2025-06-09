@@ -2,11 +2,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class NamuApi {
+public class NemoApi {
     public static final String NOT_FOUND = "NOT FOUND";
     private final Map<String, String> userDb;
 
-    public NamuApi() {
+    public NemoApi() {
         this.userDb = new HashMap<>();
     }
 
