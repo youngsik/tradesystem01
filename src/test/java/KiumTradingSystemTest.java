@@ -17,6 +17,7 @@ class KiumTradingSystemTest {
     @Mock
     private KiwerAPI mockKiwerAPI;
 
+
     @InjectMocks
     private KiumTradingSystem kiumTradingSystem;
 
@@ -63,7 +64,7 @@ class KiumTradingSystemTest {
         int price = 2000;
 
         KiumTradingSystem app = new KiumTradingSystem();
-        String actual = app.sell(stockCode,count,price);
+        String actual = app.sell(stockCode, count, price);
         String expected = String.format("%s를 %d 가격에 매도하였음", stockCode, price);
         assertEquals(actual, expected);
     }
@@ -80,6 +81,19 @@ class KiumTradingSystemTest {
         assertEquals(actual, expected);
     }
 
+    @Test
+    void kiumSellNiceTiming() {
+        KiumTradingSystem app = new KiumTradingSystem(mockKiwerAPI);
+        when(mockKiwerAPI.currentPrice(STOCK_CODE))
+                .thenReturn(1000)
+                .thenReturn(500)
+                .thenReturn(200);
+
+        app.sellNiceTiming(STOCK_CODE, 10000);
+
+        verify(mockKiwerAPI, times(3)).currentPrice(STOCK_CODE);
+    }
+  
     @Test
     void kiumBuyNiceTiming() {
         kiumTradingSystem.buyNiceTiming(STOCK_CODE,10000);

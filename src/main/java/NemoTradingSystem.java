@@ -55,4 +55,9 @@ public class NemoTradingSystem implements TradingSystem{
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void sellNiceTiming(String stockCode, int count) {
+
+    }
 }
