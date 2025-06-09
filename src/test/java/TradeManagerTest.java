@@ -87,4 +87,21 @@ class TradeManagerTest {
         String actual = trademanager.sell(STOCK_CODE, STOCK_COUNT, STOCK_PRICE);
         assertEquals(SELL_SUCCESS_RESPONSE, actual);
     }
+
+    @Test
+    void TradeManagerBuyNiceTiming() {
+        /*성공하면 매수한 주식수 return*/
+        doReturn(3).when(tradingSystem).buyNiceTiming(STOCK_CODE, 10000);
+        String actual = trademanager.buyNiceTiming(STOCK_CODE, 10000);
+        assertEquals(3, actual);
+    }
+
+    @Test
+    void TradeManagerSellNiceTiming() {
+        /*성공하면 매수하여 받은 금액 return*/
+        doReturn(10000).when(tradingSystem).sellNiceTiming(STOCK_CODE, 3);
+        String actual = trademanager.sellNiceTiming(STOCK_CODE, 3);
+        assertEquals(10000, actual);
+    }
+
 }
