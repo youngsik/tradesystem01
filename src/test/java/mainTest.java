@@ -8,17 +8,19 @@ class mainTest {
         String id = "ABC";
         String password = "BTS";
 
-        Login app = new Login(id,password);
-
+        KiumTradingSystem app = new KiumTradingSystem();
+        String actual = app.login(id,password);
+        String expected = String.format("%s님 로그인 성공", id);
         assertEquals(actual, expected);
     }
 
     void kiumloginfail() {
         String id = "ABC";
-        String password = "BTS";
+        String password = "TEST";
 
-        Login app = new Login(id,password);
-
+        KiumTradingSystem app = new KiumTradingSystem();
+        String actual = app.login(id,password);
+        String expected = String.format("%s님 로그인 실패", id);
         assertEquals(actual, expected);
     }
 
@@ -28,7 +30,9 @@ class mainTest {
         String id = "ABC";
         String password = "BTS";
 
-        Login app = new Login(id,password);
+        NamuTradingSystem app = new NamuTradingSystem();
+        String actual = app.login(id,password);
+        String expected = String.format("%s님 로그인 성공", id);
 
         assertEquals(actual, expected);
     }
@@ -36,10 +40,35 @@ class mainTest {
     @Test
     void nemologinfail() {
         String id = "ABC";
-        String password = "BTS";
+        String password = "TEST";
 
-        Login app = new Login(id,password);
-
+        NamuTradingSystem app = new NamuTradingSystem();
+        String actual = app.login(id,password);
+        String expected = String.format("%s님 로그인 실패", id);
         assertEquals(actual, expected);
     }
+
+
+    void kiumbuypass() {
+        String stockCode = "T01";
+        int count = 1;
+        int price = 1000;
+
+        KiumTradingSystem app = new KiumTradingSystem();
+        String actual = app.buy(stockCode,count,price);
+        String expected = String.format("%s를 %d 가격에 매수하였음", stockCode,price);
+        assertEquals(actual, expected);
+    }
+
+    void namubuypass() {
+        String stockCode = "T01";
+        int count = 1;
+        int price = 1000;
+
+        NamuTradingSystem app = new NamuTradingSystem();
+        String actual = app.buy(stockCode,count,price);
+        String expected = String.format("%s를 %d 가격에 매수하였음", stockCode,price);
+        assertEquals(actual, expected);
+    }
+
 }
