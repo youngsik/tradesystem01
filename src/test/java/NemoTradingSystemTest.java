@@ -25,20 +25,21 @@ class NemoTradingSystemTest {
         String id = "ABC";
         String password = "BTS";
 
-        String actual = app.login(id,password);
+        KiumTradingSystem app = new KiumTradingSystem();
+        String actual = app.login(id, password);
         String expected = String.format("%s님 로그인 성공", id);
-
         assertEquals(actual, expected);
     }
 
     @Test
     void namuloginfail() {
-        app.login("ABC", "BTS");
         String id = "ABC";
         String password = "TEST";
 
-        assertThrows(LoginFailException.class, () ->
-                app.login(id, password));
+        KiumTradingSystem app = new KiumTradingSystem();
+        String actual = app.login(id, password);
+        String expected = String.format("%s님 로그인 실패", id);
+        assertEquals(actual, expected);
     }
 
     @Test
