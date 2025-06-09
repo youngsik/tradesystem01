@@ -1,13 +1,16 @@
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TradeManagerTest {
 
     public static final String ID = "ABC";
     public static final String CORRECT_PW = "BTS";
     public static final String LOGIN_SUCCESS_LOG = "님 로그인 성공";
+
+    public static final String STOCK_CODE = "T01";
+    public static final int STOCK_COUNT = 1;
+    public static final int STOCK_PRICE = 1000;
 
     private TradingSystem tradingSystem ;
     private final TradeManager trademanager= TradeManager.getInstance();
@@ -34,27 +37,21 @@ class TradeManagerTest {
 
     @Test
     void TradeManagerBuy1() {
-        String stockCode = "T01";
-        int count = 1;
-        int price = 1000;
         tradingSystem = new KiumTradingSystem();
         trademanager.selectStockBrocker(tradingSystem);
-        String expected = String.format("%s를 %d 가격에 매수하였음", stockCode,price);
+        String expected = String.format("%s를 %d 가격에 매수하였음", STOCK_CODE, STOCK_PRICE);
 
-        String actual = trademanager.buy(stockCode,count,price);
+        String actual = trademanager.buy(STOCK_CODE, STOCK_COUNT, STOCK_PRICE);
         assertEquals(actual, expected);
     }
 
     @Test
     void TradeManagerBuy2() {
-        String stockCode = "T01";
-        int count = 1;
-        int price = 1000;
         tradingSystem = new NemoTradingSystem();
         trademanager.selectStockBrocker(tradingSystem);
-        String expected = String.format("%s를 %d 가격에 매수하였음", stockCode,price);
+        String expected = String.format("%s를 %d 가격에 매수하였음", STOCK_CODE, STOCK_PRICE);
 
-        String actual = trademanager.buy(stockCode,count,price);
+        String actual = trademanager.buy(STOCK_CODE, STOCK_COUNT, STOCK_PRICE);
         assertEquals(actual, expected);
     }
 
