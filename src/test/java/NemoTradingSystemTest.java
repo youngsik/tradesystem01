@@ -17,6 +17,7 @@ class NemoTradingSystemTest {
     public static final String STOCK_CODE = "T02";
     public static final int STOCK_COUNT = 1;
     public static final int STOCK_SELLING_PRICE = 2000;
+    public static final int GET_PRICE_MINUTE = 1;
 
     @BeforeEach
     void setUp() {
@@ -64,13 +65,10 @@ class NemoTradingSystemTest {
 
     @Test
     void nemogetprice() throws InterruptedException {
-        String stockCode = "T02";
         int expected = 2000;
-        when(nemoApi.getMarketPrice(stockCode,1)).thenReturn(expected);
+        when(nemoApi.getMarketPrice(STOCK_CODE,GET_PRICE_MINUTE)).thenReturn(2000);
 
-        NemoTradingSystem app = new NemoTradingSystem(nemoApi);
-        int actual = app.getPrice(stockCode);
-
-        assertEquals(actual, expected);
+        int actual = app.getPrice(STOCK_CODE);
+        assertEquals(expected, actual);
     }
 }
