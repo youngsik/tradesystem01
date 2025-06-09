@@ -28,4 +28,16 @@ public class TradeManager {
         }
     }
 
+    public String sell(String stockCode, int count, int price) {
+        try {
+            tradingSystem.sell(stockCode, count, price);
+            return String.format("%s를 %d 가격에 매도하였음", stockCode,price);
+        } catch (Exception e) {
+            return String.format("%s 매도 중 오류 발생: %s", stockCode, e.getMessage());
+        }
+    }
+
+    public int getPrice(String stockCode) {
+        return tradingSystem.getPrice(stockCode);
+    }
 }

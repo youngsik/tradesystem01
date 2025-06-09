@@ -69,4 +69,41 @@ class TradeManagerTest {
         assertEquals(actual, expected);
     }
 
+    @Test
+    void TradeManagerGetPrice() {
+        tradingSystem = new NemoTradingSystem(nemoApi);
+        trademanager.selectStockBrocker(tradingSystem);
+
+        try {
+            Mockito.when(nemoApi.getMarketPrice(Mockito.anyString(), Mockito.anyInt())).thenReturn(STOCK_PRICE);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        int expected = STOCK_PRICE;
+        int actual = trademanager.getPrice(STOCK_CODE);
+
+        assertEquals(expected, actual);
+    }
+
+    void TradeManagerSell1() {
+        tradingSystem = new KiumTradingSystem(kiwerAPI);
+        trademanager.selectStockBrocker(tradingSystem);
+        String expected = String.format("%s를 %d 가격에 매도하였음", STOCK_CODE, STOCK_PRICE);
+        Mockito.doNothing().when(kiwerAPI).sell(STOCK_CODE, STOCK_COUNT, STOCK_PRICE);
+
+        String actual = trademanager.sell(STOCK_CODE, STOCK_COUNT, STOCK_PRICE);
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void TradeManagerSell2() {
+        tradingSystem = new NemoTradingSystem(nemoApi);
+        trademanager.selectStockBrocker(tradingSystem);
+        String expected = String.format("%s를 %d 가격에 매도하였음", STOCK_CODE, STOCK_PRICE);
+        Mockito.doNothing().when(nemoApi).sellingStock(STOCK_CODE, STOCK_PRICE, STOCK_COUNT);
+
+        String actual = trademanager.sell(STOCK_CODE, STOCK_COUNT, STOCK_PRICE);
+        assertEquals(actual, expected);
+    }
 }
