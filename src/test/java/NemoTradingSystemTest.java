@@ -44,4 +44,16 @@ class NemoTradingSystemTest {
         String expected = String.format("%s를 %d 가격에 매도하였음", STOCK_CODE, STOCK_SELLING_PRICE);
         assertEquals(actual, expected);
     }
+
+    @Test
+    void nemobuypass() {
+        String stockCode = "T01";
+        int count = 1;
+        int price = 1000;
+
+        NemoTradingSystem app = new NemoTradingSystem();
+        String actual = app.buy(stockCode,count,price);
+        String expected = String.format("%s를 %d 가격에 매수하였음", stockCode,price);
+        assertEquals(actual, expected);
+    }
 }
