@@ -70,6 +70,22 @@ class TradeManagerTest {
     }
 
     @Test
+    void TradeManagerGetPrice() {
+        tradingSystem = new NemoTradingSystem(nemoApi);
+        trademanager.selectStockBrocker(tradingSystem);
+
+        try {
+            Mockito.when(nemoApi.getMarketPrice(Mockito.anyString(), Mockito.anyInt())).thenReturn(STOCK_PRICE);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        int expected = STOCK_PRICE;
+        int actual = trademanager.getPrice(STOCK_CODE);
+
+        assertEquals(expected, actual);
+    }
+
     void TradeManagerSell1() {
         tradingSystem = new KiumTradingSystem(kiwerAPI);
         trademanager.selectStockBrocker(tradingSystem);
@@ -90,5 +106,4 @@ class TradeManagerTest {
         String actual = trademanager.sell(STOCK_CODE, STOCK_COUNT, STOCK_PRICE);
         assertEquals(actual, expected);
     }
-
 }

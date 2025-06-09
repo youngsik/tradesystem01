@@ -48,7 +48,11 @@ public class NemoTradingSystem implements TradingSystem{
         return stockCode + "를 " + price + " 가격에 매도하였음";
     }
 
-    public int getPrice(String stockCode) throws InterruptedException {
-        return nemoApi.getMarketPrice(stockCode, 1);
+    public int getPrice(String stockCode) {
+        try {
+            return nemoApi.getMarketPrice(stockCode, 1);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
