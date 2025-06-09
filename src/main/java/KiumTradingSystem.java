@@ -1,4 +1,4 @@
-public class KiumTradingSystem {
+public class KiumTradingSystem implements TradingSystem{
     public static final String LOGIN_FAIL_LOG = "님 로그인 실패";
     public static final String LOGIN_SUCCESS_LOG = "님 로그인 성공";
 
@@ -10,6 +10,7 @@ public class KiumTradingSystem {
         kiwerAPI = new KiwerAPI();
     }
 
+    @Override
     public String login(String id, String pw) {
         if (!isPossibleId(id) || !isPossiblePW(pw)) {
             return id + LOGIN_FAIL_LOG;
