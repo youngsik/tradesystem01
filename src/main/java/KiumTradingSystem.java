@@ -51,7 +51,7 @@ public class KiumTradingSystem implements TradingSystem{
     }
 
     @Override
-    public void sellNiceTiming(String stockCode, int count) {
+    public int sellNiceTiming(String stockCode, int count) {
         int price = kiwerAPI.currentPrice(stockCode);
         for(int i = 1; i< 3; i++){
             int nowPrice = kiwerAPI.currentPrice(stockCode);
@@ -62,6 +62,7 @@ public class KiumTradingSystem implements TradingSystem{
             throw new RuntimeException("내려가는 추세가 아닙니다. 매도 실패");
         }
         kiwerAPI.sell(stockCode, count, price);
+        return count * price;
     }
 
     public int buyNiceTiming(String stockCode, int amount) {

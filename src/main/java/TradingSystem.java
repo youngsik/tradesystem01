@@ -3,5 +3,6 @@ public interface TradingSystem {
     public String buy(String stockCode, int count, int price);
     public int getPrice(String stockCode);
     public String sell(String stockCode, int count, int price);
-    public void sellNiceTiming(String stockCode, int count);
+    public int sellNiceTiming(String stockCode, int count) throws InterruptedException;
+    public int buyNiceTiming(String stockCode, int price) throws InterruptedException;
 }

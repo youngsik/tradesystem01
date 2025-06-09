@@ -2,7 +2,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.sql.SQLOutput;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -59,14 +62,15 @@ class TradeManagerTest {
     }
 
     @Test
-    void TradeManagerGetPrice() {
+    void TradeManagerGetPrice(){
+        NemoApi nemoApi = new NemoApi();
         tradingSystem = new NemoTradingSystem(nemoApi);
         trademanager.selectStockBrocker(tradingSystem);
 
         try {
-            Mockito.when(nemoApi.getMarketPrice(Mockito.anyString(), Mockito.anyInt())).thenReturn(STOCK_PRICE);
+            when(nemoApi.getMarketPrice(Mockito.anyString(), Mockito.anyInt())).thenReturn(STOCK_PRICE);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("getMarketPrice() 메소드 호출 중 예외 발생: " + e.getMessage());
         }
 
         int expected = STOCK_PRICE;
@@ -86,5 +90,21 @@ class TradeManagerTest {
         doReturn(SELL_SUCCESS_RESPONSE).when(tradingSystem).sell(STOCK_CODE, STOCK_COUNT, STOCK_PRICE);
         String actual = trademanager.sell(STOCK_CODE, STOCK_COUNT, STOCK_PRICE);
         assertEquals(SELL_SUCCESS_RESPONSE, actual);
+    }
+
+    @Test
+    void TradeManagerBuyNiceTiming() throws InterruptedException {
+        /*성공하면 매수한 주식수 return*/
+        doReturn(3).when(tradingSystem).buyNiceTiming(STOCK_CODE, 10000);
+        int actual = trademanager.buyNiceTiming(STOCK_CODE, 10000);
+        assertEquals(3, actual);
+    }
+
+    @Test
+    void TradeManagerSellNiceTiming() throws InterruptedException {
+        /*성공하면 매수하여 받은 금액 return*/
+        doReturn(10000).when(tradingSystem).sellNiceTiming(STOCK_CODE, 3);
+        int actual = trademanager.sellNiceTiming(STOCK_CODE, 3);
+        assertEquals(10000, actual);
     }
 }

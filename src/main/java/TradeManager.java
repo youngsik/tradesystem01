@@ -30,4 +30,12 @@ public class TradeManager {
     public int getPrice(String stockCode) {
         return tradingSystem.getPrice(stockCode);
     }
+
+    public int sellNiceTiming(String stockCode, int count) throws InterruptedException {
+        return tradingSystem.sellNiceTiming(stockCode, count);
+    }
+
+    public int buyNiceTiming(String stockCode, int price) throws InterruptedException {
+        return tradingSystem.buyNiceTiming(stockCode, price);
+    }
 }
