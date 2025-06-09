@@ -5,6 +5,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class NemoTradingSystemTest {
@@ -58,6 +59,18 @@ class NemoTradingSystemTest {
         int price = 1000;
         String actual = app.buy(stockCode,count,price);
         String expected = String.format("%s를 %d 가격에 매수하였음", stockCode,price);
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    void nemogetprice() {
+        String stockCode = "T02";
+        int expected = 2000;
+        when(nemoApi.currentPrice(stockCode)).thenReturn(expected);
+
+        KiumTradingSystem app = new KiumTradingSystem(nemoApi);
+        int actual = app.getPrice(stockCode);
+
         assertEquals(actual, expected);
     }
 }
