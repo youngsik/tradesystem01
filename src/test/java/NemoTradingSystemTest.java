@@ -63,12 +63,12 @@ class NemoTradingSystemTest {
     }
 
     @Test
-    void nemogetprice() {
+    void nemogetprice() throws InterruptedException {
         String stockCode = "T02";
         int expected = 2000;
-        when(nemoApi.currentPrice(stockCode)).thenReturn(expected);
+        when(nemoApi.getMarketPrice(stockCode,1)).thenReturn(expected);
 
-        KiumTradingSystem app = new KiumTradingSystem(nemoApi);
+        NemoTradingSystem app = new NemoTradingSystem(nemoApi);
         int actual = app.getPrice(stockCode);
 
         assertEquals(actual, expected);
