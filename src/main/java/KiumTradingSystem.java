@@ -28,8 +28,8 @@ public class KiumTradingSystem {
         return pw.equals("BTS");
     }
 
-    public String buy(String stockCode, int count, int price) {
-        kiwerAPI.buy(stockCode, count, price);
+    public String sell(String stockCode, int count, int price) {
+        kiwerAPI.sell(stockCode, count, price);
         return stockCode + "를 " + price+" 가격에 매도하였음";
     }
 
