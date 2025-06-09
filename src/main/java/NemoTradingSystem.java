@@ -46,6 +46,11 @@ public class NemoTradingSystem implements TradingSystem{
         }
     }
 
+    @Override
+    public void sellNiceTiming(String stockCode, int i) {
+
+    }
+
     public int getPrice(String stockCode) throws InterruptedException {
         return nemoApi.getMarketPrice(stockCode, 1);
     }

@@ -5,8 +5,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class KiumTradingSystemTest {
@@ -17,6 +16,7 @@ class KiumTradingSystemTest {
 
     @Mock
     private KiwerAPI mockKiwerAPI;
+
 
     @InjectMocks
     private KiumTradingSystem kiumTradingSystem;
@@ -64,7 +64,7 @@ class KiumTradingSystemTest {
         int price = 2000;
 
         KiumTradingSystem app = new KiumTradingSystem();
-        String actual = app.sell(stockCode,count,price);
+        String actual = app.sell(stockCode, count, price);
         String expected = String.format("%s를 %d 가격에 매도하였음", stockCode, price);
         assertEquals(actual, expected);
     }
@@ -84,8 +84,13 @@ class KiumTradingSystemTest {
     @Test
     void kiumSellNiceTiming() {
         KiumTradingSystem app = new KiumTradingSystem(mockKiwerAPI);
+        when(mockKiwerAPI.currentPrice(STOCK_CODE))
+                .thenReturn(1000)
+                .thenReturn(500)
+                .thenReturn(200);
 
-        app.sellNiceTiming(STOCK_CODE,10000);
+        app.sellNiceTiming(STOCK_CODE, 10000);
+
         verify(mockKiwerAPI, times(3)).currentPrice(STOCK_CODE);
     }
 }
