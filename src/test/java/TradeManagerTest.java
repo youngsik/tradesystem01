@@ -55,7 +55,7 @@ class TradeManagerTest {
 
     @Test
     void TradeManagerBuy2() {
-        tradingSystem = new NemoTradingSystem();
+        tradingSystem = new NemoTradingSystem(nemoApi);
         trademanager.selectStockBrocker(tradingSystem);
         String expected = String.format("%s를 %d 가격에 매수하였음", STOCK_CODE, STOCK_PRICE);
 
@@ -67,10 +67,17 @@ class TradeManagerTest {
     void TradeManagerGetPrice() {
         tradingSystem = new NemoTradingSystem(nemoApi);
         trademanager.selectStockBrocker(tradingSystem);
-        String expected = String.format("%s를 %d 가격에 매수하였음", STOCK_CODE, STOCK_PRICE);
 
+        try {
+            Mockito.when(nemoApi.getMarketPrice(Mockito.anyString(), Mockito.anyInt())).thenReturn(STOCK_PRICE);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        int expected = STOCK_PRICE;
         int  actual = trademanager.getPrice(STOCK_CODE);
-        assertNotNull(actual);
+
+        assertEquals(expected, actual);
     }
 
 }

@@ -28,4 +28,7 @@ public class TradeManager {
         }
     }
 
+    public int getPrice(String stockCode) {
+        return tradingSystem.getPrice(stockCode);
+    }
 }

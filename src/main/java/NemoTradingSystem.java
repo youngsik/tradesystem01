@@ -41,4 +41,12 @@ public class NemoTradingSystem implements TradingSystem{
             return String.format("%s 매수 중 오류 발생: %s", stockCode, e.getMessage());
         }
     }
+
+    public int getPrice(String stockCode) {
+        try {
+            return nemoApi.getMarketPrice(stockCode, 1);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
