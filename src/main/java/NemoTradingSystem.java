@@ -57,7 +57,7 @@ public class NemoTradingSystem implements TradingSystem{
     }
 
     @Override
-    public void sellNiceTiming(String stockCode, int i) {
+    public void sellNiceTiming(String stockCode, int count) {
 
     }
 }
