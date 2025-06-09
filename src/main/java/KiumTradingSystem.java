@@ -11,14 +11,14 @@ public class KiumTradingSystem {
     }
 
     public String login(String id, String pw) {
-        if(!isPossibleId(id) || !isPossiblePW(pw)){
+        if (!isPossibleId(id) || !isPossiblePW(pw)) {
             return id + LOGIN_FAIL_LOG;
         }
         kiwerAPI.login(id, pw);
         this.id = id;
         this.pw = pw;
         return this.id + LOGIN_SUCCESS_LOG;
-   }
+    }
 
     private boolean isPossibleId(String id) {
         return id.equals("ABC");
