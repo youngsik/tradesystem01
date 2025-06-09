@@ -1,13 +1,18 @@
-public class NemoTradingSystem {
+public class NemoTradingSystem implements TradingSystem {
     NemoAPI nemoAPI;
+
+    public NemoTradingSystem() {
+        this.nemoAPI = new NemoAPI();
+    }
 
     public NemoTradingSystem(NemoAPI nemoAPI) {
         this.nemoAPI = nemoAPI;
     }
+  
+    public String login(String id, String password) {
 
-    public String login(String id, String password){
         // String result = nemoAPI.login(id, password);
-        // if (result.equals(nemoAPI.NOT_FOUND)){
+        // if (result.equals(NemoAPI.NOT_FOUND)){
         //     nemoAPI.signUp(id, password);
         //     result = nemoAPI.login(id, password);
         // }
