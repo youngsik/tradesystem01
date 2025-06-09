@@ -1,6 +1,8 @@
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -11,16 +13,12 @@ class NemoTradingSystemTest {
     @Mock
     NemoAPI nemoAPI;
 
+    @InjectMocks
     private NemoTradingSystem app;
 
     public static final String STOCK_CODE = "T02";
     public static final int STOCK_COUNT = 1;
     public static final int STOCK_SELLING_PRICE = 2000;
-
-    @BeforeEach
-    void setUp() {
-        app = new NemoTradingSystem(nemoAPI);
-    }
 
     @Test
     void namuloginpass() {
